@@ -1,0 +1,26 @@
+Process to generate D8 grid
+
+All processing has been within a Python 3.6 environment. D8 flow directions were found using flow routing tools from the Landlab landscape modeling package (http://landlab.github.io/#/).
+
+1. The starting DEM was extracted from a grid with percentiles at 1/200 degrees resolution produced by Albert Van Dijk (/g/data/xc0/project/OzWALD2019/static/input grids/hypsometry.nc). The 0% percentile layer was used.
+2. This grid then had a minimum filter passed over it using a 3 x 3 rectangular window.
+3. The resulting grid from step 2 was resampled to 1/100 using bilinear interpolation.
+4. A 1/100 D8 grid was then produced from the interpolated grid.
+5. Step 2 and 3 were then repeated on the 1/100 DEM grid to produce a 1/20 grid.
+6. A 1/20 D8 grid was then produced from the interpolated grid.
+
+All of the above steps are layed out in order in a jupyter notebook file along with the two grids.
+
+The grids are encoded to match the standard D8 directions specified in the ArcGIS software:
+
+E =  1
+SE = 2
+S =  4
+SW = 8
+W =  16
+NW = 32
+N =  64
+NE = 128
+Sink = -1
+
+The data format is also set such that the D8 direction grids can be read directly into ArcGIS to run the flow accumulation tools.
